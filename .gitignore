@@ -45,3 +45,4 @@ tests/coverage
 config/user.config.js
 build
 temp
+./history
