@@ -18,6 +18,7 @@ import CPick from '../m-picker.vue';
 import area from './dd';
 import { pickerArea } from './picker-fun';
 
+
 export default {
 	name: "vcm-aaa",
 	components: {

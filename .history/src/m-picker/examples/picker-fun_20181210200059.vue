@@ -9,19 +9,17 @@
 			@colChange="onChange"
 			@ok="handleConfirm"
 			@cancel="handleCancel"/>
-		<button @click="handleByCompent">组件形式调用选择器</button>
-		<button @click="handleByOther">插件形式调用选择器</button>
 	</div>
 </template>
 <script>
-import CPick from '../m-picker.vue';
+import Picker from '../m-picker.vue';
 import area from './dd';
-import { pickerArea } from './picker-fun';
+import CreatePortal from '../../create-portal/index';
 
-export default {
-	name: "vcm-aaa",
+const config = {
+	name: "vcm-picker",
 	components: {
-		CPick
+		'CPick': Picker
 	},
 	data() {
 		return {
@@ -40,24 +38,18 @@ export default {
 			}]
 		};
 	},
-	computed: {
-
-	},
 	mounted() {
+		this.show = true;
 		this.slots[0].values = area;
 		this.slots[1].values = area[0].child;
 		this.slots[2].values = area[0].child[0].child;
 	},
 	methods: {
-		handleByCompent() {
-			this.show = true;
-		},
 		handleCancel(values) {
-			console.log(`当前picker已关闭通过点击取消按钮，返回值为${JSON.stringify(values)}`);
+			this.$emit('close', values);
 		},
 		handleConfirm(values) {
-			console.log(`当前picker已关闭通过点击确定按钮，返回值为`);
-			console.log(values);
+			this.$emit('sure', values);
 		},
 		onChange(picker, values, index) {
 			if (!this.slots[index * 1 + 1]) return;
@@ -66,15 +58,9 @@ export default {
 				this.slots[index * 1 + 2].values = [...values.child[0].child];
 			}
 		},
-		handleByOther() {
-			pickerArea.popup({
-			}).then(data => {
-				console.log(data, /resolve/);
-			}).catch(err => {
-				console.log(err, /reject/);
-			});
-		}
 	},
 };
+export default config;
+export const pickerArea = CreatePortal({}, config);
 
 </script>
