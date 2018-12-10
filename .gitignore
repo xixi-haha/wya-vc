@@ -2,6 +2,7 @@
 
 # compiled output
 # /dist
+./history
 tmp
 lib
 
@@ -45,4 +46,4 @@ tests/coverage
 config/user.config.js
 build
 temp
-./history
+
